@@ -9,7 +9,9 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 import xlrd
+import shutil
 from xlutils.copy import copy
+
 
 def step1(read_type):
     cv.destroyAllWindows()
@@ -17,6 +19,9 @@ def step1(read_type):
 
     os_path = os.getcwd()
     cell_area_hist_list=[]
+    
+    path=os_path+'output_single'
+    shutil.rmtree(path)
     print("============Step 1 Start============")
     #-----read-----
     root = tk.Tk()
@@ -33,8 +38,6 @@ def step1(read_type):
         os.makedirs(os_path + '\\result')
     if not os.path.exists(os_path+'\\bin\\output'):
         os.mkdir(os_path + '\\output_single')
-    if not os.path.exists(os_path+'\\bin\\output'):
-        os.makedirs(os_path+'\\result_pdf')
     img = cv.imread(file_path)
     img_original=img
     print("Img size: [Width :",img.shape[0],"]","[Height :",img.shape[1],"]")
@@ -172,7 +175,7 @@ def step1(read_type):
     print("Whole pic average cell nucleus color deep percent: ", Whole_pic_cell_color_ave)
     print("Whole pic average cell nucleus color deep percent_ave: ", numpy.mean(Whole_pic_cell_color_ave))
 
-    cv.imwrite("result\\cell_clean.bmp", img)
+    cv.imwrite("bin\\cell_clean.bmp", img)
     #-----put Text-----
     print("total cells number : ", counter_number)
 
@@ -250,7 +253,7 @@ def step1(read_type):
     cv.putText(img_masked, "Close window to continue", (80, img.shape[0]-250), cv.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1)
     #=================================/UI
 
-    cv.imwrite("result\\overview_result1.bmp", img_masked)
+    cv.imwrite("bin\\overview_result1.bmp", img_masked)
     print("============Step 1 End============")
     #cv.waitKey()
     return counter_number,Cells_density

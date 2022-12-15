@@ -32,7 +32,7 @@ def step4(cell_id):
     # distance from single point to center
     distance_from_single_point_to_center_list = []
 
-    for m in range(cell_id, cell_id+1):  # 对某些点进行测试# 28上一次测试的
+    for m in range(cell_id, cell_id+1):  
         # <input
         file1 = open('bin\\data_smooth_output.txt', 'r')
         fixed_data = [float(x.strip()) for x in file1]
@@ -42,7 +42,7 @@ def step4(cell_id):
 
         x_sample = dict_[m][0]
         y_sample = dict_[m][1]
-        angle_temp_list = angle_round(x_sample, y_sample, 65)  # 第三个参数为圆的半径
+        angle_temp_list = angle_round(x_sample, y_sample, 65) 
 
         for i in range(1, 73):
             x1 = angle_temp_list[i - 1][0]
@@ -55,7 +55,6 @@ def step4(cell_id):
             compare_distance_value = 0
             compare_color_value = 255
             color_hist = []
-            # 单条射线的所有点，颜色深度的集合，找出前三名
             color_deep_rank = {}
             for m in range(0, len(temp_list)):
                 x_temp = temp_list[m][0]
@@ -120,7 +119,7 @@ def step4(cell_id):
 
 
     #cv.imshow("step4 output", display)
-    cv.imwrite("output_single\\"+str(cell_id)+".bmp",display)
+    #cv.imwrite("bin\\output_single\\"+str(cell_id)+".bmp",display)
     #cv.waitKey()
     output1_non_circle_degree=(standard_error/72)/standard_r
     return (output1_non_circle_degree)

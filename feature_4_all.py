@@ -1,20 +1,19 @@
 # Create a circle around the nucleus and walk through all the rays coming from the center, looking for the cell wall
 # Xu_Yang 2020.8.11
 
-import math_test
 import cv2 as cv
 from math_test import *
 from pylab import *
 from pixelbetweenpoints import pixel_between_two_points
-def step5(cell_id,total_cells_number,output_not_circle):
+def step5(cell_id, total_cells_number, output_not_circle):
 
 
 
 
     img = cv.imread("bin\\temp_1.bmp")
     if cell_id==1:
-        cv.imwrite("bin\\output\\temp_display.bmp", img)
-    display = cv.imread("bin\\output\\temp_display.bmp")
+        cv.imwrite("bin\\temp_display.bmp", img)
+    display = cv.imread("bin\\temp_display.bmp")
 
 
     # -----preprocess-----
@@ -33,7 +32,7 @@ def step5(cell_id,total_cells_number,output_not_circle):
     # distance from single point to center
     distance_from_single_point_to_center_list = []
 
-    for m in range(cell_id, cell_id+1):  # 对某些点进行测试# 28上一次测试的
+    for m in range(cell_id, cell_id+1):  
         # <input
         file1 = open('bin\\data_smooth_output.txt', 'r')
         fixed_data = [float(x.strip()) for x in file1]
@@ -43,7 +42,7 @@ def step5(cell_id,total_cells_number,output_not_circle):
 
         x_sample = dict_[m][0]
         y_sample = dict_[m][1]
-        angle_temp_list = angle_round(x_sample, y_sample, 65)  # 第三个参数为圆的半径
+        angle_temp_list = angle_round(x_sample, y_sample, 65)  
 
         for i in range(1, 73):
             x1 = angle_temp_list[i - 1][0]
@@ -56,7 +55,7 @@ def step5(cell_id,total_cells_number,output_not_circle):
             compare_distance_value = 0
             compare_color_value = 255
             color_hist = []
-            # 单条射线的所有点，颜色深度的集合，找出前三名
+
             color_deep_rank = {}
             for m in range(0, len(temp_list)):
                 x_temp = temp_list[m][0]
@@ -88,7 +87,7 @@ def step5(cell_id,total_cells_number,output_not_circle):
             fixed_data_list = un_angle_round(x_sample,y_sample,fixed_data)
             #print(fixed_data_list)
             cv.circle(display, (round(fixed_data_list[i-1][0]), round(fixed_data_list[i-1][1])), 1, (0, 255, 0), -1)
-            #cv.circle(display, (round(x1), round(y1)), 1, (255, 0, 255), -1)  # 半径显示
+            #cv.circle(display, (round(x1), round(y1)), 1, (255, 0, 255), -1)  
 
             # distance test and upload
             distance_from_single_point_to_center_list.append(distance(x_final, y_final, cx, cy))
@@ -112,18 +111,26 @@ def step5(cell_id,total_cells_number,output_not_circle):
         file1 = open('bin\\area_of_nucleus.txt', 'r')
         dataset1 = [float(x.strip()) for x in file1]
         file1.close()
-        #print("The area of cell nucleus is: ",round(dataset1[cell_id-1]))
-    if cell_id<=total_cells_number:
-        cv.putText(display,"Chromophobe Kidney Cancer Test", (80, 30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 1)
+        # print("The area of cell nucleus is: ",round(dataset1[cell_id-1]))
+    #if cell_id<=total_cells_number:
+        #cv.putText(display, "Chromophobe Kidney Cancer Test", (80, 30), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
 
-        cv.putText(display, "- If the Result Value is less than 0.25, then there is a high probability that the image is Chromophobe.", (80, img.shape[0]-110), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 1)
-        cv.putText(display,
-                   "- If the Total cells density is less than 1, then there is a high probability that the image is Chromophobe.",
-                   (80, img.shape[0] - 70), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 1)
-        cv.putText(display,
-                   "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                   (80, img.shape[0] - 30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 1)
+        #cv.putText(display,
+                   #"- If the Result Value is less than 0,",
+                   #(80, img.shape[0] - 110), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+        #cv.putText(display,
+                   #"then there is a high probability that the image is Chromophobe.",
+                   #(80, img.shape[0] - 90), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+        #cv.putText(display,
+                   #"- If the non-circle value is less than 0.24,",
+                   #(80, img.shape[0] - 70), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+        #cv.putText(display,
+                   #"then there is a high probability that the image is Chromophobe.",
+                   #(80, img.shape[0] - 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+        #cv.putText(display,
+                   #"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                   #(80, img.shape[0] - 30), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
     #cv.imshow("step4 output", display)
 
-    cv.imwrite("bin\\output\\temp_display.bmp",display)
-    #cv.waitKey()
+    cv.imwrite("bin\\temp_display.bmp",display)
+    # cv.waitKey()
