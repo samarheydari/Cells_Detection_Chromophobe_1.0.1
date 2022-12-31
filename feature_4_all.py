@@ -12,8 +12,8 @@ def step5(cell_id, total_cells_number, output_not_circle):
 
     img = cv.imread("bin\\temp_1.bmp")
     if cell_id==1:
-        cv.imwrite("bin\\temp_display.bmp", img)
-    display = cv.imread("bin\\temp_display.bmp")
+        cv.imwrite("bin\\output\\temp_display.bmp", img)
+    display = cv.imread("bin\\output\\temp_display.bmp")
 
 
     # -----preprocess-----
